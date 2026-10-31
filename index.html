@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Finanças</title>
+<!-- ======= ENDEREÇO DO APP: tem que ser igual ao "URL do app da Web" do Apps Script (termina em /exec) ======= -->
+<script>
+  var APP_URL = "https://script.google.com/macros/s/AKfycbwOLNwsWKLKlbN092TCUoARMMPEcj0eM7UQbHl_ybYk2BDhKzHYaa9Mrdgbpp6gQSaw/exec";
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1e40af">
+<meta name="apple-mobile-web-app-title" content="Finanças">
+<meta name="application-name" content="Finanças">
+<style>
+  html,body{margin:0;height:100%;background:#1e40af;color:#fff;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;text-align:center}
+  main{min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;box-sizing:border-box}
+  img{width:140px;height:140px;border-radius:31px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+  h1{margin:0;font-size:30px;letter-spacing:.02em}
+  p{margin:0;opacity:.85;font-size:15px;max-width:340px;line-height:1.45}
+  a.btn{display:inline-block;margin-top:6px;padding:15px 30px;border-radius:12px;background:#fbbf24;color:#1e3a8a;font-weight:700;text-decoration:none;font-size:18px}
+  .passos{background:rgba(255,255,255,.1);border-radius:12px;padding:14px 16px;text-align:left;font-size:14px;line-height:1.5;max-width:340px}
+  .passos b{color:#fbbf24}
+</style>
+</head>
+<body>
+<main>
+  <img src="icon-512.png" alt="Finanças">
+  <h1>Finanças</h1>
+  <p id="msg">Seu controle financeiro</p>
+  <a class="btn" id="abrir" href="#">Abrir o aplicativo</a>
+  <div class="passos" id="passos">
+    <b>Para instalar no celular</b><br>
+    iPhone: toque em <b>Compartilhar</b> (quadrado com seta) → <b>Adicionar à Tela de Início</b>.<br>
+    Android: menu <b>⋮</b> → <b>Adicionar à tela inicial</b>.<br>
+    Depois, abra pelo ícone azul.
+  </div>
+</main>
+<script>
+  document.getElementById('abrir').href = APP_URL;
+  var params = new URLSearchParams(location.search);
+  var pelaTelaInicial = params.get('go') === '1' || (navigator.standalone === true) || window.matchMedia('(display-mode: standalone)').matches;
+  if (pelaTelaInicial) {
+    document.getElementById('msg').textContent = 'Abrindo o aplicativo…';
+    document.getElementById('passos').style.display = 'none';
+    setTimeout(function(){ window.location.replace(APP_URL); }, 250);
+  } else {
+    try { history.replaceState(null, '', location.pathname + '?go=1'); } catch (e) {}
+  }
+</script>
+</body>
+</html>
